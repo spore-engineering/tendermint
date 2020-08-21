@@ -45,7 +45,7 @@ type ErrConflictingHeaders struct {
 	H1      *types.SignedHeader
 	Primary provider.Provider
 
-	H2      *types.SignedHeader
+	H2  *types.SignedHeader
 	Witness provider.Provider
 }
 
