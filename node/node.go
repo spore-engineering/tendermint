@@ -685,6 +685,10 @@ func NewNode(config *cfg.Config,
 		// Handshake, and may have other modifications as well (ie. depending on
 		// what happened during block replay).
 		state = sm.LoadState(stateDB)
+	} else {
+		// If we're doing state sync, we have to save the genesis state since there is no other way
+		// to pass it to the state sync process in OnStart(). This is pretty terrible.
+		sm.SaveState(stateDB, state)
 	}
 
 	// Determine whether we should do fast sync. This must happen after the handshake, since the
