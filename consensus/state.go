@@ -1707,13 +1707,12 @@ func (cs *State) defaultSetProposal(proposal *types.Proposal) error {
 	}
 
 	p := proposal.ToProto()
+	proposer := cs.Validators.GetProposer()
+	cs.Logger.Error(fmt.Sprintf("xxx-proposer: h:%v r:%v %X", proposal.Height, proposal.Round, proposer.Address))
 	// Verify signature
 	if !cs.Validators.GetProposer().PubKey.VerifySignature(
 		types.ProposalSignBytes(cs.state.ChainID, p), proposal.Signature,
 	) {
-		cs.Logger.Error(fmt.Sprintf("xxx-chain-id: %q", cs.state.ChainID))
-		cs.Logger.Error(fmt.Sprintf("xxx-proposal: %v", p))
-		cs.Logger.Error(fmt.Sprintf("xxx-signature: %X", proposal.Signature))
 		return ErrInvalidProposalSignature
 	}
 
