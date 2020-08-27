@@ -1711,6 +1711,9 @@ func (cs *State) defaultSetProposal(proposal *types.Proposal) error {
 	if !cs.Validators.GetProposer().PubKey.VerifySignature(
 		types.ProposalSignBytes(cs.state.ChainID, p), proposal.Signature,
 	) {
+		cs.Logger.Error("xxx-chain-id: %q", cs.state.ChainID)
+		cs.Logger.Error("xxx-proposal: %v", p)
+		cs.Logger.Error("xxx-signature: %X", proposal.Signature)
 		return ErrInvalidProposalSignature
 	}
 
